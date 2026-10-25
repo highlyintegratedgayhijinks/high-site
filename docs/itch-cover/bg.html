@@ -1,0 +1,39 @@
+<!doctype html>
+<!--
+  itch.io profile background (3840x1600): a still of the site's liquid
+  background, .liquid-bg in src/styles/global.css, with the blobs at rest.
+
+  The site sizes the blobs to the window; here they sit in a 1440x1000 frame
+  centred at the top, so a 1440-wide window shows what the site shows. Outside
+  the frame it is the plain base colour, so set the itch theme's background
+  colour to #e8f8f8, the image to align centre, no repeat.
+
+  Render with: shot "file://$PWD/bg.html" itch-bg.png --size 3840x1600 --scale 1
+-->
+<html>
+<head>
+<meta charset="utf-8" />
+<style>
+  html, body { margin: 0; }
+  #bg { position: relative; width: 3840px; height: 1600px; overflow: hidden; background: #e8f8f8; }
+  #frame { position: absolute; left: 1200px; top: 0; width: 1440px; height: 1000px; }
+  .blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.35; }
+  /* The site's blob-1 rests top-left; here it sits low and central, so the
+     top left behind the logo stays clear */
+  .blob-1 { width: 55%; height: 55%; background: #54E2DC; top: 55%; left: 20%; }
+  .blob-2 { width: 50%; height: 50%; background: #D979FF; bottom: -15%; right: -10%; }
+  .blob-3 { width: 45%; height: 45%; background: #54E2DC; top: 30%; right: -15%; }
+  .blob-4 { width: 40%; height: 40%; background: #D979FF; bottom: 20%; left: -10%; }
+</style>
+</head>
+<body>
+<div id="bg">
+  <div id="frame">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="blob blob-4"></div>
+  </div>
+</div>
+</body>
+</html>

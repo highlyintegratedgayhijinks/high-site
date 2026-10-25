@@ -1,0 +1,80 @@
+---
+// Dev-only lab page: http://localhost:4321/lab/itch-covers/
+// In a production build getStaticPaths returns nothing, so it is never built
+// or deployed.
+import { existsSync, readFileSync } from 'node:fs';
+import { games, fileId, type Kind } from '../../lab/itch-covers';
+
+export function getStaticPaths() {
+  return import.meta.env.DEV ? [{ params: { page: 'itch-covers' } }] : [];
+}
+
+// PNG width and height from the IHDR chunk.
+const size = (path?: string) => {
+  if (!path || !existsSync(path)) return null;
+  const b = readFileSync(path);
+  return { w: b.readUInt32BE(16), h: b.readUInt32BE(20) };
+};
+
+// The itch grids show each game's newest 315x250.
+const tiles = games.map((g) => {
+  const cell = (kind: Kind) => (size(g.files[kind]) ? `/lab/file/${fileId(g, kind)}` : null);
+  return { name: g.name, url: cell('new315') ?? cell('new') ?? cell('live') ?? cell('cover') };
+});
+---
+
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Itch covers · lab</title>
+  <style>
+    :root { --bg: #f4f4f2; --ink: #1d1d1b; --dim: #6b6b66; --line: #dcdcd6; --card: #fff; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.45 system-ui, -apple-system, sans-serif; }
+    main { max-width: 1680px; margin: 0 auto; padding: 32px 24px 64px; }
+    h1 { font-size: 24px; margin: 0 0 4px; }
+    h2 { font-size: 16px; margin: 40px 0 12px; }
+    p.lede { color: var(--dim); margin: 0; max-width: 72ch; }
+    code { font: 12px/1.3 ui-monospace, Menlo, monospace; }
+
+    /* As on itch: covers at their grid size, on itch's light and dark pages. */
+    .itchgrid { display: flex; flex-wrap: wrap; gap: 20px; padding: 20px; border-radius: 8px; }
+    .itchgrid.light { background: #fff; border: 1px solid var(--line); }
+    .itchgrid.dark { background: #222; margin-top: 12px; }
+    .itchgrid figure { margin: 0; width: 315px; }
+    .itchgrid img { display: block; width: 315px; height: 250px; object-fit: cover; border-radius: 3px; }
+    .itchgrid figcaption { margin-top: 6px; font-weight: 600; font-size: 13px; }
+    .itchgrid.dark figcaption { color: #eee; }
+    .itchgrid .empty { width: 315px; height: 250px; border: 2px dashed #bbb; border-radius: 3px; display: grid; place-items: center; color: #999; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Itch covers · Playdate games</h1>
+    <p class="lede">
+      Dev-only lab, never built for production. Each game shows its reworked cover from
+      <code>src/lab/itch-covers/new/&lt;id&gt;-315.png</code> (or <code>&lt;id&gt;.png</code>), falling back to the live or
+      current one. Files are read on every reload.
+    </p>
+
+    <h2>As on itch</h2>
+    <div class="itchgrid light">
+      {tiles.map((t) => (
+        <figure>
+          {t.url ? <img src={t.url} alt={`${t.name} cover`} loading="lazy" /> : <div class="empty">no cover</div>}
+          <figcaption>{t.name}</figcaption>
+        </figure>
+      ))}
+    </div>
+    <div class="itchgrid dark">
+      {tiles.map((t) => (
+        <figure>
+          {t.url ? <img src={t.url} alt="" loading="lazy" /> : <div class="empty">no cover</div>}
+          <figcaption>{t.name}</figcaption>
+        </figure>
+      ))}
+    </div>
+  </main>
+</body>
+</html>
