@@ -1044,9 +1044,18 @@ const at = (id: string) => cats.findIndex((c) => c.id === id);
 
             {future && (
               <>
-                <FutureCard id="liljunker" name="Lil' Junker" kind="Playdate" color="#d74421" />
-                <FutureCard id="pizzaspin" name="Pizza Spin" kind="Playdate" color="#b71b28" />
-                <FutureCard id="tinyatlas" name="Tiny Atlas" kind="Playdate" color="#f4be62" />
+                <ProjectCard soon id="liljunker" cover>
+                  <img class="liljunker-bg" slot="bg" src="/img/liljunker/bg.png" srcset="/img/liljunker/bg.png 1x, /img/liljunker/bg@2x.png 2x" alt="" />
+                  <img class="liljunker-logo" src="/img/liljunker/logo.png" srcset="/img/liljunker/logo.png 1x, /img/liljunker/logo@2x.png 2x" alt="Lil' Junker" />
+                </ProjectCard>
+                <ProjectCard soon id="pizzaspin" cover>
+                  <div class="pizzaspin-cloth" slot="bg" aria-hidden="true"></div>
+                  <img class="pizzaspin-sign" src="/img/pizzaspin/sign.png" srcset="/img/pizzaspin/sign.png 1x, /img/pizzaspin/sign@2x.png 2x" alt="Pizza Spin" />
+                </ProjectCard>
+                <ProjectCard soon id="tinyatlas" cover>
+                  <img class="tinyatlas-map" slot="bg" src="/img/tinyatlas/map.png" srcset="/img/tinyatlas/map.png 1x, /img/tinyatlas/map@2x.png 2x" alt="" />
+                  <img class="tinyatlas-logo" src="/img/tinyatlas/logo.svg" alt="Tiny Atlas" />
+                </ProjectCard>
                 <FutureCard id="elevator" name="Manually Operated Elevator" kind="Playdate" color="#ffc833" />
                 <FutureCard id="kana" name="Kana" kind="Playdate" color="#bc002d" />
               </>

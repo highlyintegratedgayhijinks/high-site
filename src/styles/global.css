@@ -1615,6 +1615,88 @@ footer {
 }
 
 
+/* ---- Lil' Junker ----
+   The game's own launcher scene, 1-bit at one CSS px per game pixel
+   (doubled exactly on a 2x screen), with the wordmark in Void Junker's
+   ember colours as its own layer, as on the itch cover. */
+#liljunker {
+  background: #000;
+}
+
+.liljunker-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  image-rendering: pixelated;
+  pointer-events: none;
+}
+
+.liljunker-logo {
+  position: absolute;
+  left: 24px;
+  top: 24px;
+  width: 255px;
+  height: 96px;
+  image-rendering: pixelated;
+  z-index: 1;
+}
+
+/* ---- Tiny Atlas ----
+   The atlas app's pastel political map (no labels, no Antarctica, flat
+   sea), the whole world framed for the card and drawn by Chrome at 2x,
+   with the colour logo as vector over the Atlantic, as on the itch cover.
+   The logo clears the badge row. */
+#tinyatlas {
+  background: rgb(184, 208, 210);
+}
+
+.tinyatlas-map {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+}
+
+.tinyatlas-logo {
+  position: absolute;
+  left: calc(50% - 88px);
+  top: 10px;
+  width: 175.9px;
+  height: 148px;
+  z-index: 1;
+}
+
+/* ---- Pizza Spin ----
+   The itch cover's woven tablecloth (the repo's own weave, a seamless
+   320px tile) with its neon sign over it, centred above the badge row.
+   Both drawn natively at 1x and 2x by the repo's own art code. */
+#pizzaspin {
+  background: #be1c2a;
+}
+
+.pizzaspin-cloth {
+  position: absolute;
+  inset: 0;
+  background: url('/img/pizzaspin/cloth.webp') left top / 320px 320px repeat;
+  background-image: image-set(url('/img/pizzaspin/cloth.webp') 1x, url('/img/pizzaspin/cloth@2x.webp') 2x);
+  pointer-events: none;
+}
+
+.pizzaspin-sign {
+  position: absolute;
+  top: 18px;
+  left: calc(50% - 106px);
+  width: 212px;
+  height: 124px;
+  z-index: 1;
+}
+
 /* ---- Future view (dev only, /future/) ----
    Cards for projects not shipped yet: a Soon tag on any card, and plain
    placeholders on each project's accent colour. */
@@ -1627,6 +1709,7 @@ footer {
   border-radius: 99px;
   background: #000;
   color: #fff;
+  box-shadow: 0 0 0 1.5px #fff;
   font-family: 'Space Grotesk', sans-serif;
   font-size: 11px;
   font-weight: 700;
