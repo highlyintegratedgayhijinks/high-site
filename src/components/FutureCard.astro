@@ -1,0 +1,23 @@
+---
+// A placeholder card for a project still in the works, on the dev-only
+// /future/ page: its name and platform on its accent colour (the one the
+// HIGH dashboard uses), tagged Soon.
+import ProjectCard from './ProjectCard.astro';
+
+interface Props {
+  id: string;
+  name: string;
+  kind: string;
+  color: string;
+}
+
+const { id, name, kind, color } = Astro.props;
+---
+
+<ProjectCard id={id} soon>
+  <div class="future-bg" slot="bg" style={`--accent: ${color}`}></div>
+  <div class="card-inner future-inner">
+    <span class="future-kind">{kind}</span>
+    <strong class="future-name">{name}</strong>
+  </div>
+</ProjectCard>

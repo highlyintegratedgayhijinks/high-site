@@ -9,9 +9,11 @@ interface Props {
   cover?: boolean;
   /** feature: full row, taller; wide: full row; default: half a row. */
   size?: 'feature' | 'wide';
+  /** Not shipped yet: shown only on the dev-only /future/ page, tagged Soon. */
+  soon?: boolean;
 }
 
-const { id, bg, logo, logoAlt = '', badge, href, cover = false, size } = Astro.props;
+const { id, bg, logo, logoAlt = '', badge, href, cover = false, size, soon = false } = Astro.props;
 ---
 
 <div class:list={['project-card', { 'card--cover': cover }, size && `card--${size}`]} id={id} style={bg ? `background: ${bg}` : ''}>
@@ -19,5 +21,6 @@ const { id, bg, logo, logoAlt = '', badge, href, cover = false, size } = Astro.p
   {logo && <img class="card-logo" src={logo} alt={logoAlt} />}
   <slot />
   {badge && <span class="card-badge">{badge}</span>}
+  {soon && <span class="card-soon">Soon</span>}
   {href && <a class="card-link" href={href} aria-label={logoAlt}></a>}
 </div>

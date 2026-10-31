@@ -1,0 +1,12 @@
+---
+// Dev-only: http://localhost:4321/future/ is the homepage with the projects
+// still in the works added (see Home.astro). In a production build
+// getStaticPaths returns nothing, so it is never built or deployed.
+import Home from '../components/Home.astro';
+
+export function getStaticPaths() {
+  return import.meta.env.DEV ? [{ params: { view: 'future' } }] : [];
+}
+---
+
+<Home future />
