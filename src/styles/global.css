@@ -96,7 +96,7 @@ main {
   gap: 12px;
 }
 
-main > *:not(.card-category):not(.icon-column) {
+main > *:not(.catalog):not(.icon-column) {
   width: 100%;
   max-width: 1000px;
 }
@@ -183,71 +183,122 @@ main > *:not(.card-category):not(.icon-column) {
   75%       { transform: translate(60%, -80%) scale(1.05); }
 }
 
-/* ---- Card categories ---- */
+/* ---- Catalog: categories of cards, and the rail that names them ----
+   The cards in one column (1000px at most), the rail to their right. Each
+   rail label is placed by the script in index.astro level with its
+   category's first card, and is sticky at both ends: once it reaches its
+   slot (--i steps down from the top) it stays there, so the categories
+   already passed stack at the top, and the ones still below wait stacked at
+   the bottom. Below 900px the rail is a sticky bar above the cards. */
 
-.card-category {
+.catalog {
+  --rail-top: 12px;
+  --rail-step: 40px;
+  --rail-bottom: 16px;
+  --rail-n: 5;
   display: flex;
   align-items: stretch;
-  gap: 25px;
+  gap: 24px;
+  width: 100%;
+  padding-right: 12px;
+  box-sizing: border-box;
 }
 
-.card-category-cards {
-  width: 1000px;
-  max-width: calc(100vw - 12px - 25px - 40px);
+.catalog-cards {
+  flex: 0 1 1000px;
   min-width: 0;
+  container: cards / inline-size;
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-.card-category-bracket {
+.cat {
+  scroll-margin-top: calc(var(--rail-top) + var(--i) * var(--rail-step));
+}
+
+.cat-rail {
+  flex: 0 0 160px;
   position: relative;
-  display: flex;
-  align-items: stretch;
 }
 
-.card-category-bracket::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 2px;
-  background: #000;
+.cat-item {
+  position: sticky;
+  top: calc(var(--rail-top) + var(--i) * var(--rail-step));
+  bottom: calc(var(--rail-bottom) + (var(--rail-n) - 1 - var(--i)) * var(--rail-step));
+  height: var(--rail-step);
+  white-space: nowrap;
 }
 
-.card-category-bracket::after {
-  content: '';
-  position: absolute;
-  left: -6px;
-  top: 0;
-  bottom: 0;
-  width: 8px;
-  border-top: 2px solid #000;
-  border-bottom: 2px solid #000;
+.cat-gap {
+  height: 0;
 }
 
-.card-category-label {
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
+.cat-link {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 22px;
+  line-height: 22px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  color: rgba(0, 0, 0, 0.32);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.cat-link:hover {
+  color: #000;
+}
+
+.cat-link.is-active {
+  color: #000;
+}
+
+.cat-link:focus-visible {
+  outline: 2px solid #000;
+  outline-offset: 2px;
+}
+
+/* "What is Playdate?", a small (?) after its label. */
+.cat-help {
+  margin-left: 2px;
   font-family: 'Space Grotesk', sans-serif;
   font-size: 12px;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: #000;
-  padding: 0 0 20px 16px;
-  position: sticky;
-  top: 12px;
-  align-self: flex-start;
+  color: rgba(0, 0, 0, 0.32);
+  text-decoration: none;
+  transition: color 0.15s;
 }
 
-/* ---- Card grid ---- */
+.cat-link.is-active + sup .cat-help,
+.cat-help:hover {
+  color: #000;
+}
 
-.card-grid {
-  display: flex;
-  flex-wrap: wrap;
+.cat-item sup {
+  line-height: 0;
+}
+
+/* ---- Card grid ----
+   Two cards a row; a feature or wide card takes the whole row, and so does
+   everything once the column is narrow. */
+
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
+}
+
+@container cards (max-width: 620px) {
+  .cat-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Playdate: the category in a frame of the console's yellow. */
+#playdate {
+  background: #ffc833;
+  padding: 12px;
 }
 
 /* ---- Project cards ---- */
@@ -255,15 +306,20 @@ main > *:not(.card-category):not(.icon-column) {
 .project-card {
   position: relative;
   overflow: hidden;
-  height: 284px;
+  height: 220px;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex: 1 1 0;
   min-width: 0;
+  container-type: inline-size;
 }
 
-.project-card.card--cover {
+.card--wide,
+.card--feature {
+  grid-column: 1 / -1;
+}
+
+.card--feature {
   height: 284px;
 }
 
@@ -301,6 +357,11 @@ main > *:not(.card-category):not(.icon-column) {
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-end;
+  padding: 24px 28px;
+  gap: 12px;
+}
+
+.card--feature .card-inner {
   padding: 28px 32px;
   gap: 14px;
 }
@@ -558,7 +619,9 @@ main > *:not(.card-category):not(.icon-column) {
 #worldr .card-desc  { color: #aab3be; }
 #worldr .card-tags span { color: #7f8996; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.10); }
 
-#atlas .card-desc   { color: #b8b0a5; }
+/* A halo of the card's ground under the text, so it reads over the map. */
+#atlas .card-desc   { color: #d2cbc1; text-shadow: 0 0 2px #1c1814, 0 0 6px #1c1814, 0 0 12px #1c1814, 0 0 18px rgba(28,24,20,0.8); }
+#atlas .atlas-logo  { filter: drop-shadow(0 0 4px #1c1814) drop-shadow(0 0 12px #1c1814); }
 #atlas .card-tags span  { color: #8a8278; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); }
 
 #mundialazo .card-desc  { color: rgba(247,240,223,0.74); }
@@ -911,6 +974,11 @@ main > *:not(.card-category):not(.icon-column) {
   background-color: #05070c;
 }
 
+#voidjunker .card-desc {
+  color: #e4e1ee;
+  text-shadow: 0 0 2px #05070c, 0 0 8px #05070c, 0 0 16px rgba(5, 7, 12, 0.8);
+}
+
 /* The card is the Void Junker box-art painting in two layers, from the
    game repo's box-art lab (labs/box-art-lab.html, format "HIGH homepage"):
    the painted sky, and the hauler and rock on transparency over it. Both are
@@ -941,55 +1009,47 @@ main > *:not(.card-category):not(.icon-column) {
 }
 
 /* ---- Ship Shape ----
-   The game's own screen: the in-game tube, timer, B button, holding frame
-   and belt at 1.5x game pixels on the game's brick wall (one image, so it
-   can sit anywhere), with the itch banner's 2x sign on top. At 1.5x the
-   holding frame (152 game px) is 228px and fits the card whole, and on a
-   2x screen every game pixel is exactly 3 device pixels. The wall is
-   anchored right so the frame and the belt stay under the store badges as
-   the card narrows; the timer slides behind the sign. */
-
+   The photoreal art in three layers, all at 0.375 CSS px per pixel of the
+   Catalog feature art: brick wall built from the art's own clean courses
+   (a seamless 225px repeat), the conveyor belt drawn new for the itch cover
+   (its last 10px are its shadow on the wall), and the sign on its posts,
+   which run off the card's top and bottom. The sign sits high so its plate
+   clears the badges. */
 #shipshape {
-  background-color: #fff;
+  background: #5e2a26;
 }
 
 .shipshape-wall {
   position: absolute;
   inset: 0;
-  /* Screen rows 28..217 in view: the holding frame centred. */
-  background: url('/img/shipshape/wall.png') right -0.5px top -42px / 1000.5px 360px no-repeat;
-  image-rendering: pixelated;
+  background: url('/img/shipshape/photo-wall.jpg') left top / 225px 220px repeat-x;
+  background-image: image-set(url('/img/shipshape/photo-wall.jpg') 1x, url('/img/shipshape/photo-wall@2x.jpg') 2x);
   pointer-events: none;
 }
 
-.shipshape-logo {
+.shipshape-belt {
   position: absolute;
-  left: 32px;
-  top: -34px;
-  width: 320px;
-  height: auto;
-  image-rendering: pixelated;
+  top: 0;
+  right: 4px;
+  width: 180px;
+  height: 220px;
+  pointer-events: none;
+}
+
+.shipshape-sign {
+  position: absolute;
+  left: 11px;
+  top: -69px;
+  width: 256px;
+  height: 310px;
   z-index: 1;
 }
 
-/* Below a ~700px card the full-size sign would meet the badges. The 1x
-   sign at the wall's own 1.5x scale (240px) leaves them room. */
-@media (max-width: 720px) {
-  .shipshape-logo {
-    width: 240px;
-    top: 11px;
-  }
-}
-
-/* Phones: the badges move to the top, the machine drops out (the wall's
-   left end is plain brick) and the sign sits below the badges. */
-@media (max-width: 640px) {
-  .shipshape-wall {
-    background-position: left top -42px;
-  }
-
-  .shipshape-logo {
-    top: 30px;
+/* On a phone card the belt only peeks in from the right edge. */
+@container (max-width: 420px) {
+  .shipshape-belt {
+    right: auto;
+    left: 262px;
   }
 }
 
@@ -1000,12 +1060,12 @@ main > *:not(.card-category):not(.icon-column) {
    side by side and stacked. */
 .store-badges {
   position: absolute;
-  right: 32px;
-  bottom: 28px;
+  right: 24px;
+  bottom: 24px;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
-  gap: 12px;
+  gap: 10px;
   z-index: 3;
 }
 
@@ -1015,37 +1075,253 @@ main > *:not(.card-category):not(.icon-column) {
 
 .store-badges img {
   display: block;
-  height: 42px;
+  height: 36px;
   width: auto;
 }
 
-/* Below a ~600px card a card's logo and the badges would meet in the bottom
-   row, so the badges move to the opposite corner rather than shrinking. */
-@media (max-width: 640px) {
-  .store-badges {
+.card--feature .store-badges {
+  right: 32px;
+  bottom: 28px;
+  gap: 12px;
+}
+
+.card--feature .store-badges img {
+  height: 42px;
+}
+
+/* Below a ~600px feature card its logo and the badges would meet in the
+   bottom row, so the badges move to the opposite corner rather than
+   shrinking; on the smallest cards a pair packs tighter. */
+@container (max-width: 600px) {
+  .card--feature .store-badges {
     top: 28px;
     bottom: auto;
     left: 32px;
+    right: 32px;
+    justify-content: flex-start;
   }
 }
 
-/* On small phones a pair stops fitting one row (Ship Shape's Catalog badge
-   is 5px wider than itch's). A tighter gap holds it down to ~375px, then a
-   slightly smaller pair beats wrapping a second row onto the logo. */
-@media (max-width: 400px) {
+@container (max-width: 360px) {
   .store-badges {
     gap: 8px;
   }
-}
 
-@media (max-width: 372px) {
-  .store-badges {
+  .card--feature .store-badges {
     left: 20px;
     right: 20px;
   }
 
-  .store-badges img {
+  .card--feature .store-badges img {
     height: 36px;
+  }
+}
+
+/* ---- Small cards with moving art: text left, art right ----
+   Extravagaria's game cards, Yarda's slides and Cadavra's floating names
+   take the right half; the logo, description and button the left. On the
+   narrowest cards the art goes and the text has the card. */
+#extravagaria .card-inner,
+#yarda .card-inner,
+#cadavra .card-inner {
+  right: 50%;
+  padding-right: 12px;
+}
+
+.extravagaria-logo-wrap {
+  width: 200px;
+  height: 21px;
+}
+
+.extravagaria-logo {
+  width: 21px;
+}
+
+#extravagaria .card-desc {
+  max-width: none;
+  font-size: 13px;
+}
+
+.extravagaria-cards {
+  top: 20px;
+  right: 20px;
+  bottom: 20px;
+  height: auto;
+  width: calc(50% - 32px);
+  max-width: none;
+  aspect-ratio: auto;
+  transform: none;
+}
+
+/* The scrim only has to darken the text column. */
+#extravagaria::after {
+  background: linear-gradient(90deg, rgba(5,5,5,0.85) 0%, rgba(5,5,5,0.55) 40%, rgba(5,5,5,0) 55%);
+}
+
+.yarda-carousel {
+  left: 50%;
+}
+
+.cadavra-floaters {
+  left: 48%;
+}
+
+/* Cadavra's names, smaller for the half card they float in. */
+#cadavra .cadavra-float-text {
+  font-size: 18px;
+}
+
+#cadavra .cadavra-float-portrait {
+  width: 34px;
+  height: 34px;
+}
+
+/* Worldr's screenshots and Keydraw's drawing need the card's right half;
+   on a phone card they would sit under the text, so they go. */
+@container (max-width: 600px) {
+  .worldr-screenshots {
+    display: none;
+  }
+}
+
+@container (max-width: 420px) {
+  #keydraw .card-bgimg {
+    display: none;
+  }
+}
+
+@container (max-width: 420px) {
+  #extravagaria .card-inner,
+  #yarda .card-inner,
+  #cadavra .card-inner {
+    right: 0;
+  }
+
+  .extravagaria-cards,
+  .yarda-carousel,
+  .cadavra-floaters {
+    display: none;
+  }
+}
+
+/* ---- Core Relay ----
+   The game's own scene (its cover code, the title left out), drawn at the
+   card's size; the trailer's wordmark over it as vector. */
+#corerelay {
+  background: #2b2b2b;
+}
+
+/* The scene's network spans x 442-668 of its 1000; seen from 38% it sits
+   right of centre on a half card, clear of the wordmark. A phone card is
+   too narrow for that, so it stays centred there. */
+#corerelay .card-cover {
+  object-position: 38% center;
+}
+
+@container (max-width: 420px) {
+  #corerelay .card-cover {
+    object-position: center;
+  }
+}
+
+.corerelay-logo {
+  width: 240px;
+  height: auto;
+  filter: drop-shadow(0 0 6px #19191b) drop-shadow(0 0 14px #19191b);
+}
+
+#corerelay .card-desc {
+  color: #ddd;
+  text-shadow: 0 0 8px #19191b, 0 0 2px #19191b;
+}
+
+#corerelay .card-btn {
+  background: #ddd;
+  color: #1f1f1f;
+}
+
+@container (max-width: 400px) {
+  .corerelay-logo {
+    width: 220px;
+  }
+}
+
+/* ---- Quattro ----
+   The itch banner's machine, its violet plate on the circuit field, with
+   the wordmark over its middle, both at one CSS pixel per game pixel and
+   doubled exactly on a 2x screen. The wordmark is placed from the card's
+   centre, as the image is cropped from its centre, so the two stay
+   registered at any width (the machine sits half a pixel left of the
+   image's middle, hence 152, not 150.5). */
+#quattro {
+  background: #000;
+}
+
+.quattro-machine {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  image-rendering: pixelated;
+  pointer-events: none;
+}
+
+.quattro-logo {
+  position: absolute;
+  left: calc(50% - 152px);
+  top: 69px;
+  width: 301px;
+  height: 62px;
+  image-rendering: pixelated;
+  z-index: 1;
+}
+
+/* ---- TG4PD ----
+   1-bit, at 1.5 CSS px per game pixel, which is exactly 3 device pixels on
+   a 2x screen (the images are drawn at 3, nearest-neighbour): the itch
+   page's sky, the launcher card's bank of cloud repeating along the
+   bottom, the mark and name top left, and the launcher card's two bubbles
+   restacked into a column on the right, where the card has room. */
+#tg4pd {
+  background: #bdecf9;
+}
+
+.tg4pd-cloud {
+  position: absolute;
+  inset: 0;
+  background: url('/img/tg4pd/cloud.png') left bottom / 72px 30px repeat-x;
+  image-rendering: pixelated;
+  pointer-events: none;
+}
+
+/* The logo and the bubbles centred on the sky above the cloud (y 95),
+   both on the 1.5px game-pixel grid. */
+#tg4pd .card-inner {
+  justify-content: flex-start;
+  padding: 52.5px 24px 24px;
+}
+
+.tg4pd-logo {
+  width: 181.5px;
+  height: 85.5px;
+  image-rendering: pixelated;
+}
+
+.tg4pd-chat {
+  position: absolute;
+  right: 24px;
+  top: 45px;
+  width: 187.5px;
+  height: 99px;
+  image-rendering: pixelated;
+  pointer-events: none;
+}
+
+@container (max-width: 440px) {
+  .tg4pd-chat {
+    display: none;
   }
 }
 
@@ -1233,22 +1509,71 @@ footer {
   }
 }
 
+/* Clear of the tile strip down the right edge while it shows. */
+@media (min-width: 1301px) {
+  .catalog {
+    padding-right: 212px;
+  }
+}
+
 @media (max-width: 900px) {
   main {
     padding-right: 12px;
   }
 
-  .card-category-bracket {
+  /* The rail becomes a bar that sticks above the cards. */
+  .catalog {
+    --rail-bar: 52px;
+    flex-direction: column;
+    gap: 12px;
+    padding-right: 0;
+  }
+
+  .catalog-cards {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+
+  .cat {
+    scroll-margin-top: calc(var(--rail-bar) + 12px);
+  }
+
+  .cat-rail {
+    order: -1;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    flex: 0 0 auto;
+    display: flex;
+    gap: 18px;
+    height: var(--rail-bar);
+    margin: 0 -12px;
+    padding: 0 12px;
+    box-sizing: border-box;
+    overflow-x: auto;
+    scrollbar-width: none;
+    background: rgba(232, 248, 248, 0.86);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .cat-rail::-webkit-scrollbar {
     display: none;
   }
 
-  .card-category {
-    width: 100%;
+  .cat-item {
+    position: static;
+    align-self: center;
+    height: auto;
   }
 
-  .card-category-cards {
-    max-width: none;
-    width: 100%;
+  .cat-gap {
+    display: none;
+  }
+
+  .cat-link {
+    font-size: 18px;
+    line-height: 22px;
   }
 
   header {
@@ -1282,22 +1607,10 @@ footer {
     justify-content: space-between;
   }
 
-  .project-card {
-    flex: 0 0 auto;
-    width: 100%;
-  }
-
   .voidjunker-ship,
   .mindvalley-pattern {
     display: none;
   }
 
-  .extravagaria-cards {
-    display: none;
-  }
-
-  #extravagaria .card-desc {
-    max-width: 420px;
-  }
 }
 

@@ -7,12 +7,14 @@ interface Props {
   badge?: string;
   href?: string;
   cover?: boolean;
+  /** feature: full row, taller; wide: full row; default: half a row. */
+  size?: 'feature' | 'wide';
 }
 
-const { id, bg, logo, logoAlt = '', badge, href, cover = false } = Astro.props;
+const { id, bg, logo, logoAlt = '', badge, href, cover = false, size } = Astro.props;
 ---
 
-<div class:list={['project-card', { 'card--cover': cover }]} id={id} style={bg ? `background: ${bg}` : ''}>
+<div class:list={['project-card', { 'card--cover': cover }, size && `card--${size}`]} id={id} style={bg ? `background: ${bg}` : ''}>
   <slot name="bg" />
   {logo && <img class="card-logo" src={logo} alt={logoAlt} />}
   <slot />

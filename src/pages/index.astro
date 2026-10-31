@@ -851,106 +851,242 @@ import '../styles/global.css';
       });
     </script>
 
-    <section class="card-category">
-      <div class="card-category-cards">
-        <!-- <div class="card-grid">
-          <ProjectCard id="mindvalley" cover>
-            <img slot="bg" class="mindvalley-pattern" src="/img/mindvalley/pattern.svg" alt="" />
-            <div class="card-inner">
-              <img class="mindvalley-logo" src="/img/mindvalley/logo.svg" alt="Mind Valley" />
-              <p class="card-desc">See the pieces. Remember the secret.<br />Find a word that clicks, in Italian or English, offline.</p>
-            </div>
-          </ProjectCard>
-        </div> -->
+    <!-- Projects by category, with the category rail beside them (a bar
+         above them on narrow screens). Each label sits level with its
+         category's first card and sticks once it reaches its place in the
+         stack: the categories above stack at the top, the ones below at the
+         bottom. Only shipped projects get a card. -->
+    <div class="catalog">
+      <div class="catalog-cards">
+        <section class="cat" id="featured" aria-label="Featured" style="--i: 0">
+          <div class="cat-grid">
+            <ProjectCard id="voidjunker" cover size="feature">
+              <img class="voidjunker-sky" slot="bg" src="/img/voidjunker/card-sky.webp" alt="" />
+              <img class="voidjunker-ship" slot="bg" src="/img/voidjunker/card-ship.webp" alt="" />
+              <div class="card-inner">
+                <img class="voidjunker-logo" src="/img/voidjunker/wordmark.png" width="240" height="109" alt="Void Junker" />
+                <p class="card-desc">These asteroids yearn to be mined...</p>
+              </div>
+              <div class="store-badges">
+                <a href="https://highlyintegratedgayhijink.itch.io/voidjunker"><img src="/img/badge-itch.svg" alt="Available on itch.io" /></a>
+                <a href="https://store.steampowered.com/app/5396740/Void_Junker/"><img src="/img/badge-steam.svg" alt="Wishlist on Steam" /></a>
+              </div>
+            </ProjectCard>
+          </div>
+        </section>
 
-        <div class="card-grid">
-          <ProjectCard id="voidjunker" cover>
-            <img class="voidjunker-sky" slot="bg" src="/img/voidjunker/card-sky.webp" alt="" />
-            <img class="voidjunker-ship" slot="bg" src="/img/voidjunker/card-ship.webp" alt="" />
-            <div class="card-inner">
-              <img class="voidjunker-logo" src="/img/voidjunker/wordmark.png" width="240" height="109" alt="Void Junker" />
-            </div>
-            <div class="store-badges">
-              <a href="https://highlyintegratedgayhijink.itch.io/voidjunker"><img src="/img/badge-itch.svg" alt="Available on itch.io" /></a>
-              <a href="https://store.steampowered.com/app/5396740/Void_Junker/"><img src="/img/badge-steam.svg" alt="Wishlist on Steam" /></a>
-            </div>
-          </ProjectCard>
-        </div>
+        <section class="cat" id="web-games" aria-label="Web games" style="--i: 1">
+          <div class="cat-grid">
+            <ProjectCard id="corerelay" cover href="https://core-relay.hijinks.uno">
+              <img slot="bg" class="card-cover" src="/img/corerelay/bg.png" srcset="/img/corerelay/bg.png 1x, /img/corerelay/bg@2x.png 2x" alt="" />
+              <div class="card-inner">
+                <img class="corerelay-logo" src="/img/corerelay/logo.svg" alt="Core Relay" />
+                <p class="card-desc">Bring all to the Core.</p>
+                <span class="card-btn">Play &rarr;</span>
+              </div>
+            </ProjectCard>
 
-        <div class="card-grid">
-          <ProjectCard id="worldr" cover href="https://worldr.net">
-            <div class="worldr-screenshots" slot="bg">
-              <img src="/img/worldr/worldr-detail-card.png" alt="" />
-              <img src="/img/worldr/worldr-timeline.png" alt="" />
-              <img src="/img/worldr/worldr-faction-timeline.png" alt="" />
-              <img src="/img/worldr/worldr-zodiac-settings.png" alt="" />
-              <img src="/img/worldr/worldr-char-events.png" alt="" />
-              <img src="/img/worldr/worldr-properties.png" alt="" />
-            </div>
-            <div class="card-inner">
-              <img class="worldr-logo" src="/img/worldr-logo.svg" alt="WORLDR" />
-              <p class="card-desc">Build the worlds behind your stories. A rich database for your characters, places, factions, and way more.</p>
-              <span class="card-btn">Start creating &rarr;</span>
-            </div>
-          </ProjectCard>
-        </div>
+            <ProjectCard id="extravagaria" cover href="https://extravagaria.net">
+              <canvas id="extravagaria-gradient" class="extravagaria-gradient" slot="bg" data-transition-in></canvas>
+              <div class="extravagaria-cards" slot="bg">
+                <img src="/img/extravagaria/card-beexagon.webp" alt="" loading="lazy" decoding="async" />
+                <img src="/img/extravagaria/card-wordoku.webp" alt="" loading="lazy" decoding="async" />
+                <img src="/img/extravagaria/card-shufflind.webp" alt="" loading="lazy" decoding="async" />
+                <img src="/img/extravagaria/card-wisteria.webp" alt="" loading="lazy" decoding="async" />
+                <img src="/img/extravagaria/card-ragaman.webp" alt="" loading="lazy" decoding="async" />
+                <img src="/img/extravagaria/card-impile.webp" alt="" loading="lazy" decoding="async" />
+                <img src="/img/extravagaria/card-conquest.webp" alt="" loading="lazy" decoding="async" />
+              </div>
+              <div class="card-inner">
+                <span class="extravagaria-logo-wrap"><img class="extravagaria-logo" src="/img/extravagaria-logo.svg" alt="Extravagaria" /></span>
+                <p class="card-desc">Puzzle games galore!</p>
+                <span class="card-btn">Play &rarr;</span>
+              </div>
+            </ProjectCard>
 
-        <div class="card-grid">
-          <ProjectCard id="atlas" cover href="https://atlasmundi.net">
-            <img slot="bg" class="atlas-map-bg" src="/img/atlas-map.svg" alt="" />
-            <div class="card-inner">
-              <img class="atlas-logo" src="/img/atlas-mundi-logo.svg" alt="ATLAS MUNDI" />
-              <p class="card-desc">An interactive atlas with lots of interesting data.</p>
-              <span class="card-btn">Explore the world &rarr;</span>
-            </div>
-          </ProjectCard>
-        </div>
+            <ProjectCard id="cadavra" cover href="https://cadavra.net">
+              <div class="cadavra-floaters" slot="bg" id="cadavra-floaters"></div>
+              <div class="card-inner">
+                <div class="cadavra-logo-group">
+                  <img class="cadavra-skull" src="/img/cadavra-skull.webp" alt="" />
+                  <span class="cadavra-wordmark">cadavra</span>
+                </div>
+                <p class="card-desc">Write a story with strangers.</p>
+                <span class="card-btn">Welcome &rarr;</span>
+              </div>
+            </ProjectCard>
 
-        <!-- <div class="card-grid">
-          <ProjectCard id="vexillomania" cover href="https://vexillomania.net">
-            <div class="card-inner">
-              <img class="vexillomania-logo" src="/img/vexillomanialogo.svg" alt="" aria-hidden="true" />
-              <strong class="vexillomania-name">Vexillomania</strong>
-              <p class="card-desc">A catalog of flags from around the world — history, symbolism, and design.</p>
-              <span class="card-btn">Enter &rarr;</span>
-            </div>
-          </ProjectCard>
-        </div> -->
+            <ProjectCard id="yarda" href="https://yarda.io">
+              <div class="yarda-carousel" slot="bg" id="yarda-carousel">
+                <div class="yarda-carousel-track">
+                  <img src="/img/yarda-slide-1.svg" alt="" />
+                  <img src="/img/yarda-preview.svg" alt="" />
+                  <img src="/img/yarda-slide-3.svg" alt="" />
+                  <img src="/img/yarda-slide-4.svg" alt="" />
+                </div>
+                <div class="yarda-dots">
+                  <button class="yarda-dot yarda-dot--active" data-slide="0"></button>
+                  <button class="yarda-dot" data-slide="1"></button>
+                  <button class="yarda-dot" data-slide="2"></button>
+                  <button class="yarda-dot" data-slide="3"></button>
+                </div>
+              </div>
+              <div class="card-inner">
+                <img class="yarda-logo" src="/img/yarda-logo.svg" alt="Yarda" />
+                <p class="card-desc">Build acronyms.</p>
+                <span class="card-btn">Play &rarr;</span>
+              </div>
+            </ProjectCard>
 
-        <!-- <div class="card-grid">
-          <ProjectCard id="mundialazo" href="https://mundialazo.net">
-            <div class="card-inner">
-              <img class="mundialazo-logo" src="/img/mundialazologo.svg" alt="Mundialazo" />
-              <p class="card-desc">You like the World Cup? You like data?<br /> Oh boy you're in for a treat...</p>
-              <span class="card-btn">Score &rarr;</span>
-            </div>
-          </ProjectCard>
-        </div> -->
+            <ProjectCard id="redattolo" href="https://redattolo.vercel.app">
+              <div class="card-inner">
+                <img class="redattolo-logo" src="/img/redattolo-logo.svg" alt="Redattolo" />
+                <p class="card-desc">Che articolo è? Scoprilo <span class="redacted">parola</span> per parola...</p>
+                <span class="card-btn">Scopri &rarr;</span>
+              </div>
+            </ProjectCard>
 
-        <div class="card-grid">
-          <ProjectCard id="extravagaria" cover href="https://extravagaria.net">
-            <canvas id="extravagaria-gradient" class="extravagaria-gradient" slot="bg" data-transition-in></canvas>
-            <div class="extravagaria-cards" slot="bg">
-              <img src="/img/extravagaria/card-beexagon.webp" alt="" loading="lazy" decoding="async" />
-              <img src="/img/extravagaria/card-wordoku.webp" alt="" loading="lazy" decoding="async" />
-              <img src="/img/extravagaria/card-shufflind.webp" alt="" loading="lazy" decoding="async" />
-              <img src="/img/extravagaria/card-wisteria.webp" alt="" loading="lazy" decoding="async" />
-              <img src="/img/extravagaria/card-ragaman.webp" alt="" loading="lazy" decoding="async" />
-              <img src="/img/extravagaria/card-impile.webp" alt="" loading="lazy" decoding="async" />
-              <img src="/img/extravagaria/card-conquest.webp" alt="" loading="lazy" decoding="async" />
-            </div>
-            <div class="card-inner">
-              <span class="extravagaria-logo-wrap"><img class="extravagaria-logo" src="/img/extravagaria-logo.svg" alt="Extravagaria" /></span>
-              <p class="card-desc">All the puzzle games your heart may desire, with daily challenges and player scoreboards.</p>
-              <span class="card-btn">Play &rarr;</span>
-            </div>
-          </ProjectCard>
-        </div>
+            <ProjectCard id="chromle" href="https://chromle.vercel.app">
+              <img slot="bg" class="card-bgimg" src="/img/chromle-bg.svg" alt="" />
+              <div class="card-inner">
+                <img class="chromle-logo" src="/img/chromle-logo.svg" alt="Chromle" />
+                <p class="card-desc">See the color, guess the hex.</p>
+                <span class="card-btn">Play &rarr;</span>
+              </div>
+            </ProjectCard>
+
+            <!-- <ProjectCard id="iwanttoplaythisgame" cover href="https://iwtptg.hijinks.uno">
+              <div class="iwtptg-log" slot="bg" id="iwtptg-log">
+                <div class="iwtptg-log-content"></div>
+              </div>
+              <div class="card-inner">
+                <svg class="iwanttoplaythisgame-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 170 26">
+                  <rect x="0.5" y="0.5" width="169" height="25" rx="2" ry="2" fill="#fff" stroke="#333" stroke-width="1"/>
+                  <text x="85" y="18" text-anchor="middle" font-family="'EB Garamond', serif" font-size="16" fill="#333">I want to play this game</text>
+                </svg>
+                <p class="card-desc">Mentalize. Reify. Pulverize. Purify.</p>
+                <span class="card-btn">Play &rarr;</span>
+              </div>
+            </ProjectCard> -->
+          </div>
+        </section>
+
+        <section class="cat" id="playdate" aria-label="Playdate" style="--i: 2">
+          <div class="cat-grid">
+            <ProjectCard id="shipshape" cover>
+              <div class="shipshape-wall" slot="bg" aria-hidden="true"></div>
+              <img class="shipshape-belt" slot="bg" src="/img/shipshape/belt.png" srcset="/img/shipshape/belt.png 1x, /img/shipshape/belt@2x.png 2x" alt="" />
+              <img class="shipshape-sign" src="/img/shipshape/sign.png" srcset="/img/shipshape/sign.png 1x, /img/shipshape/sign@2x.png 2x" alt="Ship Shape" />
+              <div class="store-badges">
+                <a href="https://highlyintegratedgayhijink.itch.io/shipshape"><img src="/img/badge-itch.svg" alt="Available on itch.io" /></a>
+                <a href="https://play.date/games/ship-shape/"><img src="/img/badge-playdate.svg" alt="Buy it in Catalog" /></a>
+              </div>
+            </ProjectCard>
+
+            <ProjectCard id="quattro" cover>
+              <img class="quattro-machine" slot="bg" src="/img/quattro/machine.png" srcset="/img/quattro/machine.png 1x, /img/quattro/machine@2x.png 2x" alt="" />
+              <img class="quattro-logo" src="/img/quattro/logo.png" srcset="/img/quattro/logo.png 1x, /img/quattro/logo@2x.png 2x" alt="Quattro" />
+              <div class="store-badges">
+                <a href="https://highlyintegratedgayhijink.itch.io/quattro"><img src="/img/badge-itch.svg" alt="Available on itch.io" /></a>
+              </div>
+            </ProjectCard>
+
+            <ProjectCard id="tg4pd" cover>
+              <div class="tg4pd-cloud" slot="bg" aria-hidden="true"></div>
+              <img class="tg4pd-chat" slot="bg" src="/img/tg4pd/chat.png" alt="" />
+              <div class="card-inner">
+                <img class="tg4pd-logo" src="/img/tg4pd/logo.png" alt="TG4PD: unofficial Telegram client for Playdate" />
+              </div>
+              <div class="store-badges">
+                <a href="https://highlyintegratedgayhijink.itch.io/tg4pd"><img src="/img/badge-itch.svg" alt="Available on itch.io" /></a>
+              </div>
+            </ProjectCard>
+          </div>
+        </section>
+
+        <section class="cat" id="web-apps" aria-label="Web apps" style="--i: 3">
+          <div class="cat-grid">
+            <ProjectCard id="worldr" cover size="feature" href="https://worldr.net">
+              <div class="worldr-screenshots" slot="bg">
+                <img src="/img/worldr/worldr-detail-card.png" alt="" />
+                <img src="/img/worldr/worldr-timeline.png" alt="" />
+                <img src="/img/worldr/worldr-faction-timeline.png" alt="" />
+                <img src="/img/worldr/worldr-zodiac-settings.png" alt="" />
+                <img src="/img/worldr/worldr-char-events.png" alt="" />
+                <img src="/img/worldr/worldr-properties.png" alt="" />
+              </div>
+              <div class="card-inner">
+                <img class="worldr-logo" src="/img/worldr-logo.svg" alt="WORLDR" />
+                <p class="card-desc">Build the worlds behind your stories. A rich database for your characters, places, factions, and way more.</p>
+                <span class="card-btn">Start creating &rarr;</span>
+              </div>
+            </ProjectCard>
+
+            <ProjectCard id="atlas" cover href="https://atlasmundi.net">
+              <img slot="bg" class="atlas-map-bg" src="/img/atlas-map.svg" alt="" />
+              <div class="card-inner">
+                <img class="atlas-logo" src="/img/atlas-mundi-logo.svg" alt="ATLAS MUNDI" />
+                <p class="card-desc">An interactive atlas with lots of interesting data.</p>
+                <span class="card-btn">Explore the world &rarr;</span>
+              </div>
+            </ProjectCard>
+
+            <ProjectCard id="keydraw" href="https://keydraw.hijinks.uno">
+              <img slot="bg" class="card-bgimg" src="/img/keydraw-bg.svg" alt="" />
+              <div class="card-inner">
+                <img class="keydraw-logo" src="/img/keydraw-logo.svg" alt="KeyDraw" />
+                <p class="card-desc">Draw with your keyboard!</p>
+                <span class="card-btn">Draw &rarr;</span>
+              </div>
+            </ProjectCard>
+
+            <!-- <ProjectCard id="vexillomania" cover href="https://vexillomania.net">
+              <div class="card-inner">
+                <img class="vexillomania-logo" src="/img/vexillomanialogo.svg" alt="" aria-hidden="true" />
+                <strong class="vexillomania-name">Vexillomania</strong>
+                <p class="card-desc">A catalog of flags from around the world — history, symbolism, and design.</p>
+                <span class="card-btn">Enter &rarr;</span>
+              </div>
+            </ProjectCard> -->
+
+            <!-- <ProjectCard id="mundialazo" href="https://mundialazo.net">
+              <div class="card-inner">
+                <img class="mundialazo-logo" src="/img/mundialazologo.svg" alt="Mundialazo" />
+                <p class="card-desc">You like the World Cup? You like data?<br /> Oh boy you're in for a treat...</p>
+                <span class="card-btn">Score &rarr;</span>
+              </div>
+            </ProjectCard> -->
+
+            <!-- <ProjectCard id="shaperino" href="https://shaperino.hijinks.uno">
+              <img slot="bg" class="card-bgimg" src="/img/shaperino-bg.svg" alt="" />
+              <div class="card-inner">
+                <img class="shaperino-logo" src="/img/shaperino-logo.svg" alt="Shaperino" />
+                <p class="card-desc">A shape-based clicker.</p>
+                <span class="card-btn">Play &rarr;</span>
+              </div>
+            </ProjectCard> -->
+          </div>
+        </section>
+
+        <section class="cat" id="ios-apps" aria-label="iOS apps" style="--i: 4">
+          <div class="cat-grid">
+            <ProjectCard id="mindvalley" cover size="feature" href="https://apps.apple.com/app/mind-valley/id6451257101">
+              <img slot="bg" class="mindvalley-pattern" src="/img/mindvalley/pattern.svg" alt="" />
+              <div class="card-inner">
+                <img class="mindvalley-logo" src="/img/mindvalley/logo.svg" alt="Mind Valley" />
+                <p class="card-desc">See the pieces. Remember the secret.<br />Find a word that clicks, in Italian or English, offline.</p>
+              </div>
+              <div class="store-badges">
+                <a href="https://apps.apple.com/app/mind-valley/id6451257101"><img src="/img/badge-appstore.svg" alt="Download on the App Store" /></a>
+              </div>
+            </ProjectCard>
+          </div>
+        </section>
 
         <!-- No href: ProjectCard renders it as a full-card <a> overlay,
              which would swallow clicks on the email input. -->
-        <div class="card-grid">
-          <ProjectCard id="newsletter">
+        <div class="cat-grid">
+          <ProjectCard id="newsletter" size="feature">
             <div class="newsletter-frame" slot="bg" aria-hidden="true"></div>
             <div class="card-inner">
               <strong class="newsletter-title">
@@ -961,111 +1097,16 @@ import '../styles/global.css';
             </div>
           </ProjectCard>
         </div>
-
-        <div class="card-grid">
-          <ProjectCard id="cadavra" cover href="https://cadavra.net">
-            <div class="cadavra-floaters" slot="bg" id="cadavra-floaters"></div>
-            <div class="card-inner">
-              <div class="cadavra-logo-group">
-                <img class="cadavra-skull" src="/img/cadavra-skull.webp" alt="" />
-                <span class="cadavra-wordmark">cadavra</span>
-              </div>
-              <p class="card-desc">Each writes a bit... to build a corpse.</p>
-              <span class="card-btn">Welcome &rarr;</span>
-            </div>
-          </ProjectCard>
-        </div>
-
-        <div class="card-grid">
-          <ProjectCard id="yarda" href="https://yarda.io">
-            <div class="yarda-carousel" slot="bg" id="yarda-carousel">
-              <div class="yarda-carousel-track">
-                <img src="/img/yarda-slide-1.svg" alt="" />
-                <img src="/img/yarda-preview.svg" alt="" />
-                <img src="/img/yarda-slide-3.svg" alt="" />
-                <img src="/img/yarda-slide-4.svg" alt="" />
-              </div>
-              <div class="yarda-dots">
-                <button class="yarda-dot yarda-dot--active" data-slide="0"></button>
-                <button class="yarda-dot" data-slide="1"></button>
-                <button class="yarda-dot" data-slide="2"></button>
-                <button class="yarda-dot" data-slide="3"></button>
-              </div>
-            </div>
-            <div class="card-inner">
-              <img class="yarda-logo" src="/img/yarda-logo.svg" alt="Yarda" />
-              <p class="card-desc">Build acronyms, then get judged by the other players.</p>
-              <span class="card-btn">Play &rarr;</span>
-            </div>
-          </ProjectCard>
-          <ProjectCard id="redattolo" href="https://redattolo.vercel.app">
-            <div class="card-inner">
-              <img class="redattolo-logo" src="/img/redattolo-logo.svg" alt="Redattolo" />
-              <p class="card-desc">Che articolo è? Scoprilo <span class="redacted">parola</span> per parola...</p>
-              <span class="card-btn">Scopri &rarr;</span>
-            </div>
-          </ProjectCard>
-        </div>
-
-        <!-- <div class="card-grid">
-          <ProjectCard id="iwanttoplaythisgame" cover href="https://iwtptg.hijinks.uno">
-            <div class="iwtptg-log" slot="bg" id="iwtptg-log">
-              <div class="iwtptg-log-content"></div>
-            </div>
-            <div class="card-inner">
-              <svg class="iwanttoplaythisgame-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 170 26">
-                <rect x="0.5" y="0.5" width="169" height="25" rx="2" ry="2" fill="#fff" stroke="#333" stroke-width="1"/>
-                <text x="85" y="18" text-anchor="middle" font-family="'EB Garamond', serif" font-size="16" fill="#333">I want to play this game</text>
-              </svg>
-              <p class="card-desc">Mentalize. Reify. Pulverize. Purify.</p>
-              <span class="card-btn">Play &rarr;</span>
-            </div>
-          </ProjectCard>
-        </div> -->
-
-        <div class="card-grid">
-          <ProjectCard id="shipshape" cover>
-            <div class="shipshape-wall" slot="bg" aria-hidden="true"></div>
-            <picture>
-              <source media="(max-width: 720px)" srcset="/img/shipshape/sign-1x.png" />
-              <img class="shipshape-logo" src="/img/shipshape-logo.webp" alt="Ship Shape" />
-            </picture>
-            <div class="store-badges">
-              <a href="https://highlyintegratedgayhijink.itch.io/shipshape"><img src="/img/badge-itch.svg" alt="Available on itch.io" /></a>
-              <a href="https://play.date/games/ship-shape/"><img src="/img/badge-playdate.svg" alt="Buy it in Catalog" /></a>
-            </div>
-          </ProjectCard>
-        </div>
-
-        <div class="card-grid">
-          <ProjectCard id="chromle" href="https://chromle.vercel.app">
-            <img slot="bg" class="card-bgimg" src="/img/chromle-bg.svg" alt="" />
-            <div class="card-inner">
-              <img class="chromle-logo" src="/img/chromle-logo.svg" alt="Chromle" />
-              <p class="card-desc">See the color, guess the hex.</p>
-              <span class="card-btn">Play &rarr;</span>
-            </div>
-          </ProjectCard>
-          <ProjectCard id="keydraw" href="https://keydraw.hijinks.uno">
-            <img slot="bg" class="card-bgimg" src="/img/keydraw-bg.svg" alt="" />
-            <div class="card-inner">
-              <img class="keydraw-logo" src="/img/keydraw-logo.svg" alt="KeyDraw" />
-              <p class="card-desc">Draw with your keyboard!</p>
-              <span class="card-btn">Draw &rarr;</span>
-            </div>
-          </ProjectCard>
-          <!-- <ProjectCard id="shaperino" href="https://shaperino.hijinks.uno">
-            <img slot="bg" class="card-bgimg" src="/img/shaperino-bg.svg" alt="" />
-            <div class="card-inner">
-              <img class="shaperino-logo" src="/img/shaperino-logo.svg" alt="Shaperino" />
-              <p class="card-desc">A shape-based clicker.</p>
-              <span class="card-btn">Play &rarr;</span>
-            </div>
-          </ProjectCard> -->
-        </div>
-
       </div>
-    </section>
+
+      <nav class="cat-rail" aria-label="Categories">
+        <div class="cat-item" style="--i: 0"><a class="cat-link" href="#featured">Featured</a></div>
+        <div class="cat-item" style="--i: 1"><a class="cat-link" href="#web-games">Web games</a></div>
+        <div class="cat-item" style="--i: 2"><a class="cat-link" href="#playdate">Playdate</a><sup><a class="cat-help" href="https://play.date" aria-label="What is Playdate?">(?)</a></sup></div>
+        <div class="cat-item" style="--i: 3"><a class="cat-link" href="#web-apps">Web apps</a></div>
+        <div class="cat-item" style="--i: 4"><a class="cat-link" href="#ios-apps">iOS apps</a></div>
+      </nav>
+    </div>
 
   </main>
 
@@ -1083,6 +1124,81 @@ import '../styles/global.css';
     </p>
   </footer>
 
+
+<script>
+  // The category rail. On wide screens each label is pushed down (a spacer)
+  // until it is level with its category's top; its sticky top and bottom (in
+  // global.css) then stack it with the others. The category in view is the
+  // last one whose label has reached its slot, or, at the very bottom of the
+  // page where the last categories can't scroll that far, the last one whose
+  // top is on screen.
+  const rail = document.querySelector<HTMLElement>('.cat-rail');
+  if (rail) {
+    const items = [...rail.querySelectorAll<HTMLElement>('.cat-item')];
+    const links = items.map((it) => it.querySelector<HTMLAnchorElement>('.cat-link')!);
+    const sections = links.map((a) => document.querySelector<HTMLElement>(a.hash)!);
+    const wide = matchMedia('(min-width: 901px)');
+
+    // A spacer before each label, not a margin: a sticky element's margin
+    // box has to stay inside the rail, so a margin would stop a label short
+    // of its slot in the bottom stack.
+    const gaps = items.map((it) => {
+      const gap = document.createElement('div');
+      gap.className = 'cat-gap';
+      gap.setAttribute('aria-hidden', 'true');
+      it.before(gap);
+      return gap;
+    });
+
+    const place = () => {
+      for (const g of gaps) g.style.height = '0px';
+      if (!wide.matches) return;
+      const railTop = rail.getBoundingClientRect().top;
+      let y = 0;
+      items.forEach((it, i) => {
+        const m = Math.max(0, sections[i].getBoundingClientRect().top - railTop - y);
+        gaps[i].style.height = `${m}px`;
+        y += m + it.offsetHeight;
+      });
+    };
+
+    let current = -1;
+    const mark = () => {
+      let active = 0;
+      sections.forEach((s, i) => { if (s.getBoundingClientRect().top <= parseFloat(getComputedStyle(s).scrollMarginTop) + 2) active = i; });
+      if (innerHeight + scrollY >= document.documentElement.scrollHeight - 2) {
+        sections.forEach((s, i) => { if (s.getBoundingClientRect().top < innerHeight) active = Math.max(active, i); });
+      }
+      if (active === current) return;
+      current = active;
+      links.forEach((a, i) => {
+        a.classList.toggle('is-active', i === active);
+        if (i === active) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
+      });
+      // In the bar, keep the active label in view without scrolling the page.
+      if (!wide.matches) {
+        const it = items[active];
+        rail.scrollTo({ left: it.offsetLeft - (rail.clientWidth - it.offsetWidth) / 2, behavior: 'smooth' });
+      }
+    };
+
+    let frame = 0;
+    const update = () => { cancelAnimationFrame(frame); frame = requestAnimationFrame(() => { place(); mark(); }); };
+    addEventListener('scroll', () => requestAnimationFrame(mark), { passive: true });
+    addEventListener('resize', update);
+    wide.addEventListener('change', update);
+    new ResizeObserver(update).observe(document.querySelector('.catalog-cards')!);
+    update();
+
+    // A click scrolls the category to its label's slot (scroll-margin-top).
+    const smooth = !matchMedia('(prefers-reduced-motion: reduce)').matches;
+    links.forEach((a, i) => a.addEventListener('click', (e) => {
+      e.preventDefault();
+      sections[i].scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'start' });
+      history.replaceState(null, '', a.hash);
+    }));
+  }
+</script>
 
 <script>
   import { watchTileFrame } from '../scripts/logo-tiles.js';
