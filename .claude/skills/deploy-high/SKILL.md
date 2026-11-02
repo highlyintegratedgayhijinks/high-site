@@ -20,18 +20,16 @@ cd /Users/manfroze/htdocs/high
 npm run build
 ```
 
-## 2. Deploy — the three excludes are required
+## 2. Deploy — the exclude is required
 
-Three separate folders live inside this web root and are not part of the Astro
-build. Without an `--exclude` each, `--delete` wipes them:
+One separate folder lives inside this web root and is not part of the Astro
+build. Without its `--exclude`, `--delete` wipes it:
 
-- `worldmatrix/` — deployed from `htdocs/worldmatrix/deploy.sh`
-- `ident/` — deployed from `htdocs/high-ident` with `/deploy-ident`
-- `n26-tool/` — privacy and terms pages for the personal N26 open-banking app, from `htdocs/finances/legal/n26-tool/`
+- `worldmatrix/` — the page that forwards to toys.hijinks.uno/worldmatrix/, deployed from `htdocs/high-toys/deploy.sh`
 
 ```bash
-deploy-static --exclude /worldmatrix/ --exclude /ident/ --exclude /n26-tool/ dist/ /var/www/high/        # dry run
-deploy-static --go --exclude /worldmatrix/ --exclude /ident/ --exclude /n26-tool/ dist/ /var/www/high/
+deploy-static --exclude /worldmatrix/ dist/ /var/www/high/        # dry run
+deploy-static --go --exclude /worldmatrix/ dist/ /var/www/high/
 ```
 
 Keep the leading `/`. It anchors each exclude to the web root. Without it,
@@ -46,8 +44,7 @@ forgotten one looks like.
 
 ```bash
 curl -sI https://hijinks.uno/ | head -3                                    # 200, nginx
-curl -s https://hijinks.uno/ident/ | grep -o '<title>[^<]*</title>'        # nested sites intact
-curl -sI https://hijinks.uno/worldmatrix/ | head -1
+curl -sI https://hijinks.uno/worldmatrix/ | head -1                        # nested sites intact
 ```
 
 ## Gotchas
