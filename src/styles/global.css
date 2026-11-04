@@ -1697,6 +1697,137 @@ footer {
   z-index: 1;
 }
 
+/* ---- HIGHDUCKS ----
+   The site's paper, and on the right three of its comic-panel cards: ink
+   frames with a hard offset shadow, halftone dots, a character standing in
+   each. The wordmark is the site's own, rendered from its header. */
+#highducks {
+  background: #f7f2e8 url('/img/highducks/paper.png') repeat;
+}
+
+#highducks .card-inner {
+  right: 46%;
+  padding-right: 8px;
+}
+
+.highducks-logo {
+  width: 100%;
+  max-width: 190px;
+  height: auto;
+}
+
+#highducks .card-desc { color: #4a4f5c; font-size: 13px; }
+#highducks .card-btn { background: #1f5bb8; color: #fff; }
+
+.highducks-panels {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 18px;
+  width: calc(46% - 18px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.highducks-panel {
+  --dot: #e3d8c4;
+  position: relative;
+  flex: 0 0 auto;
+  width: 88px;
+  height: 128px;
+  margin-left: -18px;
+  border: 2.5px solid #1d2230;
+  border-radius: 6px;
+  box-shadow: 4px 4px 0 #1d2230;
+  background: radial-gradient(var(--dot) 30%, transparent 34%) 0 0 / 7px 7px, var(--bg);
+  overflow: hidden;
+}
+
+.highducks-panel:first-child { margin-left: 0; }
+.highducks-panel:nth-child(1) { --bg: #fdebd8; --dot: #f3c9a0; transform: translateY(-14px) rotate(-4deg); }
+.highducks-panel:nth-child(2) { --bg: #dfe8f6; --dot: #b9cbe8; transform: translateY(10px); z-index: 1; }
+.highducks-panel:nth-child(3) { --bg: #fbf7ee; --dot: #e3d8c4; transform: translateY(-6px) rotate(4deg); }
+
+.highducks-panel img {
+  position: absolute;
+  left: 50%;
+  bottom: 6px;
+  height: 86%;
+  width: auto;
+  transform: translateX(-50%);
+}
+
+/* ---- Pkers ----
+   The site's sky (its nebula and star tiles, on its night) with the hero
+   cutout, PK and the Evronians, standing on the right; the amber logo left. */
+#pkers {
+  background: #120a1f;
+}
+
+.pkers-sky {
+  position: absolute;
+  inset: 0;
+  background:
+    url('/img/pkers/stars-c.svg') 0 0 / 389px 389px repeat,
+    url('/img/pkers/stars-a.svg') 0 0 / 613px 613px repeat,
+    url('/img/pkers/stars-b.svg') 200px 90px / 947px 947px repeat,
+    url('/img/pkers/nebula.webp') center 30% / cover no-repeat,
+    linear-gradient(180deg, #120c16 0%, #120a1f 100%);
+  pointer-events: none;
+}
+
+.pkers-hero {
+  position: absolute;
+  top: -4px;
+  right: 36px;
+  height: calc(100% + 30px);
+  width: auto;
+  /* The small Evronians on the art's left stay, dimmed, under the text; the
+     rock at the bottom fades into the sky. */
+  -webkit-mask-image: linear-gradient(90deg, rgba(0,0,0,0.45) 30%, #000 55%), linear-gradient(0deg, transparent 0%, #000 22%);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(90deg, rgba(0,0,0,0.45) 30%, #000 55%), linear-gradient(0deg, transparent 0%, #000 22%);
+  mask-composite: intersect;
+  pointer-events: none;
+}
+
+#pkers .card-inner {
+  right: 44%;
+  padding-right: 8px;
+}
+
+.pkers-logo {
+  width: 100%;
+  max-width: 170px;
+  height: auto;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.7));
+}
+
+#pkers .card-desc { color: #e4d9f7; font-size: 13px; text-shadow: 0 0 8px #120a1f, 0 0 16px #120a1f; }
+#pkers .card-btn { background: #ffb800; color: #120a1f; }
+
+/* Narrower cards keep two of the panels, so they stay clear of the wordmark. */
+@container (max-width: 470px) {
+  .highducks-panel:nth-child(3) {
+    display: none;
+  }
+}
+
+/* On the narrowest cards the art goes and the text has the card. */
+@container (max-width: 420px) {
+  .highducks-panels,
+  .pkers-hero {
+    display: none;
+  }
+
+  #highducks .card-inner,
+  #pkers .card-inner {
+    right: 0;
+  }
+}
+
 /* ---- Future view (dev only, /future/) ----
    Cards for projects not shipped yet: a Soon tag on any card, and plain
    placeholders on each project's accent colour. */
