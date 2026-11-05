@@ -20,23 +20,22 @@ cd /Users/manfroze/htdocs/high
 npm run build
 ```
 
-## 2. Deploy — the exclude is required
+## 2. Deploy
 
-One separate folder lives inside this web root and is not part of the Astro
-build. Without its `--exclude`, `--delete` wipes it:
-
-- `worldmatrix/` — the page that forwards to toys.hijinks.uno/worldmatrix/, deployed from `htdocs/high-toys/deploy.sh`
+The web root holds only the Astro build: nothing else lives inside it, so the
+sync needs no excludes.
 
 ```bash
-deploy-static --exclude /worldmatrix/ dist/ /var/www/high/        # dry run
-deploy-static --go --exclude /worldmatrix/ dist/ /var/www/high/
+deploy-static dist/ /var/www/high/        # dry run
+deploy-static --go dist/ /var/www/high/
 ```
 
-Keep the leading `/`. It anchors each exclude to the web root. Without it,
-rsync matches the name at any depth, so the old `voidjunker/` exclude also
-skipped `dist/img/voidjunker/` and the card's images never reached the server.
-
-A new hijinks.uno subpath needs its own exclude here. `deploy-static` refuses
+Keep it that way. The old nested folders (`ident/`, `n26-tool/`, and
+`worldmatrix/`, which forwarded to toys.hijinks.uno until 2026-11-04) are gone.
+Anything new goes on its own subdomain, not in here. If something ever must,
+it needs an anchored `--exclude /<name>/` here (with the leading `/`: unanchored,
+rsync matches the name at any depth, and the old `voidjunker/` exclude once
+skipped `dist/img/voidjunker/`). `deploy-static` refuses
 to `--go` if a whole top-level directory would be deleted, which is what a
 forgotten one looks like.
 
@@ -44,7 +43,6 @@ forgotten one looks like.
 
 ```bash
 curl -sI https://hijinks.uno/ | head -3                                    # 200, nginx
-curl -sI https://hijinks.uno/worldmatrix/ | head -1                        # nested sites intact
 ```
 
 ## Gotchas
