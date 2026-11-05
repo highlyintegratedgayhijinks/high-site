@@ -1325,6 +1325,37 @@ main > *:not(.catalog):not(.icon-column) {
   }
 }
 
+/* ---- Lone Arrow ----
+   Drawn by the game's itch lab in its dusk palette, from the game's own
+   sprites: a 760 x 220 scene with no logo (the course, a shot from the big
+   bow over a pillar towards the bows on the right, clear of the badge), and
+   the logo alone. Both at one CSS pixel per game pixel, as Quattro: the scene
+   cropped from its centre, the logo placed from the card's centre over it. */
+#lonearrow {
+  background: #2a1d33;
+}
+
+.lonearrow-scene {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  image-rendering: pixelated;
+  pointer-events: none;
+}
+
+.lonearrow-logo {
+  position: absolute;
+  left: calc(50% - 153px);
+  top: 28px;
+  width: 306px;
+  height: 52px;
+  image-rendering: pixelated;
+  z-index: 1;
+}
+
 /* ---- Full-card link overlay ---- */
 .card-link {
   position: absolute;
